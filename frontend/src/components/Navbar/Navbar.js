@@ -3,11 +3,22 @@ import { Link } from 'react-router-dom';
 import useStyles from './styles';
 
 import memories from '../../images/memories.png';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
     const classes = useStyles();
 
-    const user = null;
+    const [ user,setUser ] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    console.log(user);
+
+    useEffect(() => {
+        const token = user?.token;
+
+        //JWT
+
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [])
 
     return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
@@ -18,7 +29,7 @@ const Navbar = () => {
         <Toolbar className={classes.toolbar}>
             {user ? (
                 <div className={classes.profile}>
-                    <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
+                    <Avatar className={classes.purple} alt={user.result.name} src={user.result.picture}>{user.result.name.charAt(0)}</Avatar>
                     <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
                     <Button variant="contained" className={classes.logout} color="secondary" >Logout</Button>
                 </div>
