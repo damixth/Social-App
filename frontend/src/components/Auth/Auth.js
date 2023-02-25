@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { GoogleLogin } from '@react-oauth/google';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useStyles from './styles';
@@ -26,6 +28,15 @@ const Auth = () => {
         handleShowPassword(false);
     }
 
+    const googleSuccess = async (res) => {
+        console.log(res);
+    }
+
+    const googleFailure = (error) => {
+        console.log(error);
+        console.log("Google sign in was unsuccessful. Try again later!");
+    }
+
     return ( 
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -48,7 +59,17 @@ const Auth = () => {
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                     {isSignup ? 'Sign up' : 'Sign in'}
                 </Button>
-                <Grid container justifyContent="flex-end">
+                <Grid container justifyContent="center">   
+                <GoogleLogin 
+                    
+                    theme="filled_blue"
+                    shape="circle"
+                    onSuccess={googleSuccess}
+                    onError={googleFailure}
+                    cookiePolicy="single_host_origin"
+                />
+                </Grid>
+                <Grid container justifyContent="center">
                         <Grid item>
                             <Button onClick={switchMode}>
                                 { isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign up"}
