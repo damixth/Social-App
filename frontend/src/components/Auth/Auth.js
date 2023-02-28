@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from "./Input";
-import { signUp, signIn } from '../../actions/auth';
+import { signup, signin } from '../../actions/auth';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
 
@@ -27,9 +27,9 @@ const Auth = () => {
         e.preventDefault();
 
         if(isSignup){
-            dispatch(signUp(formData, navigate));
+            dispatch(signup(formData, navigate));
         } else {
-            dispatch(signIn(formData, navigate));
+            dispatch(signin(formData, navigate));
         }
     };
 
@@ -39,7 +39,7 @@ const Auth = () => {
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false);
+        setShowPassword(false);
     };
 
     const googleSuccess = async (res) => {
